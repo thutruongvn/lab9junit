@@ -15,6 +15,7 @@ public class ArrayReversorTest {
     @Before
     public void setUp() throws Exception {
         arrayReversorService = new ArrayReversor();
+        arrayReversorService.setFlattenerService(arrayFlattenerService);
     }
 
     @After
@@ -37,11 +38,11 @@ public class ArrayReversorTest {
 
         int[][] a = new int[][]{{1,3},{0},{4,5,9}};
         when(arrayFlattenerService.flattenArray(a)).thenReturn(new int[]{1,3,0,4,5,9});
-        int[] array = arrayFlattenerService.flattenArray(a);
-        assertArrayEquals(array, new int[]{1,3,0,4,5,9});
+//        int[] array = arrayFlattenerService.flattenArray(a);
+//        assertArrayEquals(array, new int[]{1,3,0,4,5,9});
         int[] expected = new int[]{9,5,4,0,3,1};
         int[] actual = arrayReversorService.reverseArray(a);
         assertArrayEquals(actual, expected);
-        verify(arrayFlattenerService).flattenArray(new int[][]{{1,3}, {0}, {4,5,9}});
+        verify(arrayFlattenerService).flattenArray(a);
     }
 }

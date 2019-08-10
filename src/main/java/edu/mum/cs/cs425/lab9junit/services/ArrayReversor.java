@@ -1,14 +1,11 @@
 package edu.mum.cs.cs425.lab9junit.services;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ArrayReversor {
 
     private IArrayFlattener flattenerService;
 
     public void ArrayReversor(IArrayFlattener flattenerService) {
-        this.flattenerService = flattenerService;
+        this.setFlattenerService(flattenerService);
     }
     public int[] reverseArray(int[][] a_in){
         int[] f_a = this.flattenerService.flattenArray(a_in);
@@ -28,5 +25,9 @@ public class ArrayReversor {
 //        Integer[] a_result = new Integer[aList.size()];
 //        return aList.toArray(a_result);
 //        return null;
+    }
+
+    public void setFlattenerService(IArrayFlattener flattenerService) {
+        this.flattenerService = flattenerService;
     }
 }
