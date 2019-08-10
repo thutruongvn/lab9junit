@@ -6,12 +6,11 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class ArrayReversorTest {
     private ArrayReversor arrayReversorService;
-    private ArrayFlattener arrayFlattenerService = mock(ArrayFlattener.class);
+    private IArrayFlattener arrayFlattenerService = mock(IArrayFlattener.class);
 //    @Mock
     @Before
     public void setUp() throws Exception {
@@ -26,8 +25,11 @@ public class ArrayReversorTest {
     @Test
     public void reverseArray_Null_Test() {
         int[][] a = null;
-        Integer[] actual = this.arrayReversorService.reverseArray(a);
+        when(arrayFlattenerService.flattenArray(a)).thenReturn(null);
+//        Integer[] actual = this.arrayReversorService.reverseArray(a);
+        int[] actual = this.arrayReversorService.reverseArray(a);
         assertNull(actual);
+        verify(arrayFlattenerService).flattenArray(null);
     }
 
     @Test
@@ -37,8 +39,9 @@ public class ArrayReversorTest {
         when(arrayFlattenerService.flattenArray(a)).thenReturn(new int[]{1,3,0,4,5,9});
         int[] array = arrayFlattenerService.flattenArray(a);
         assertArrayEquals(array, new int[]{1,3,0,4,5,9});
-        Integer[] expected = new Integer[]{9,5,4,0,3,1};
-        Integer[] actual = arrayReversorService.reverseArray(a);
+        int[] expected = new int[]{9,5,4,0,3,1};
+        int[] actual = arrayReversorService.reverseArray(a);
         assertArrayEquals(actual, expected);
+        verify(arrayFlattenerService).flattenArray(new int[][]{{1,3}, {0}, {4,5,9}});
     }
 }

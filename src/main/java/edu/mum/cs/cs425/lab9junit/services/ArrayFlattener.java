@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ArrayFlattener {
+public class ArrayFlattener {//implements IArrayFlattener{
+//    @Override
     public int[] flattenArray(int[][] a_in){
         if(a_in == null || a_in.length == 0) return null;
         return Arrays.stream(a_in)
